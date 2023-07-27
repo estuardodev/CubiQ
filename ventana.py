@@ -1,6 +1,7 @@
 # Importaciones
+import random
 import tkinter as tk
-from tkinter import filedialog
+from tkinter import filedialog, ttk
 
 # Variables Globales
 ruta_imagen_seleccionada = None
@@ -28,10 +29,12 @@ def ventana_programa():
             label_ruta_imagen.config(text="Ruta de la imagen seleccionada: " + ruta_imagen_seleccionada)
         else:
             label_ruta_imagen.config(text="No se ha seleccionado ninguna imagen.")
+            
 
     '''Fin de las funciones a utilizar'''
 
     '''Inicio de objetos dentro de la ventana'''
+
     # Etiqueta para mostrar la ruta de la imagen seleccionada
     label_ruta_imagen = tk.Label(ventana, text="No se ha seleccionado ninguna imagen.", wraplength=300)
     label_ruta_imagen.pack(pady=10)
@@ -39,6 +42,19 @@ def ventana_programa():
     # Botón para seleccionar la imagen
     boton_seleccionar = tk.Button(ventana, text="Seleccionar imagen", command=seleccionar_imagen)
     boton_seleccionar.pack(pady=5)
+
+    # Etiqueta para mostrar la ruta de la imagen seleccionada
+    formato_opciones = ["PNG", "JPG", "JPEG", "WEBP", "GIF"]
+    laber_combo = tk.Label(ventana, text="Formato a Convertir.", wraplength=300)
+    laber_combo.pack(pady=10)
+    combo = ttk.Combobox(
+        state="readonly",
+        values=formato_opciones
+    )
+    combo.set(random.choice(formato_opciones))
+    combo.pack(pady=10)
+
+    '''Fin de objetos dentro de la ventana'''
 
     # Ejecutamos la ventana
     ventana.mainloop()
