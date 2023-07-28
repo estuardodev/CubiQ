@@ -21,11 +21,21 @@ def ventana_programa():
     ventana = tk.Tk()
 
     # Configuración de la ventana
-    ventana.geometry("550x600")
+    ancho_ventana = 550
+    alto_ventana = 600
+    x_ventana = ventana.winfo_screenwidth() // 2 - ancho_ventana // 2
+    y_ventana = ventana.winfo_screenheight() // 2 - alto_ventana // 2
+    posicion = str(ancho_ventana) + "x" + str(alto_ventana) + "+" + str(x_ventana) + "+" + str(y_ventana)
+    ventana.geometry(posicion)
     ventana.title("Conversor de Formatos")
     ventana.config(background=FONDO)
+    ventana.resizable(False, False)
+    
+
     label_principal = tk.Label(ventana, text="Conversor de Formatos", wraplength=300, font=FUENTE_PRINCIPAL)
     label_principal.pack(pady=20)
+    our_canvas=tk.Canvas(ventana,width=550,height=1,bg="black")
+    our_canvas.pack()
     
 
     '''Funciónes a utilizar'''
@@ -121,5 +131,6 @@ def ventana_programa():
 
     '''Fin de objetos dentro de la ventana'''
 
+  
     # Ejecutamos la ventana
     ventana.mainloop()
