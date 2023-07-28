@@ -29,7 +29,14 @@ def ventana_programa():
             label_ruta_imagen.config(text="Ruta de la imagen seleccionada: " + ruta_imagen_seleccionada)
         else:
             label_ruta_imagen.config(text="No se ha seleccionado ninguna imagen.")
-            
+
+    def seleccionar_carpeta():
+        global ruta_carpeta_guardado
+        ruta_carpeta_guardado = filedialog.askdirectory(title="Seleccionar carpeta de guardado")
+        if ruta_carpeta_guardado:
+            label_ruta_guardar.config(text="Carpeta de guardado seleccionada: " + ruta_carpeta_guardado)
+        else:
+            label_ruta_guardar.config(text="No se ha seleccionado ninguna carpeta de guardado.")
 
     '''Fin de las funciones a utilizar'''
 
@@ -53,6 +60,14 @@ def ventana_programa():
     )
     combo.set(random.choice(formato_opciones))
     combo.pack(pady=10)
+
+    # Etiqueta para mostrar la ruta de la carpeta seleccionada
+    label_ruta_guardar = tk.Label(ventana, text="No se ha seleccionado ninguna carpeta de guardado.", wraplength=300)
+    label_ruta_guardar.pack(pady=10)
+
+    # Botón para seleccionar la carpeta de guardado
+    boton_seleccionar_carpeta = tk.Button(ventana, text="Seleccionar carpeta", command=seleccionar_carpeta)
+    boton_seleccionar_carpeta.pack(pady=5)
 
     '''Fin de objetos dentro de la ventana'''
 
