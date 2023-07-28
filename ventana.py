@@ -1,7 +1,9 @@
 # Importaciones
-import random
+import random, time
 import tkinter as tk
-from tkinter import filedialog, ttk
+from tkinter import filedialog, ttk, messagebox
+from pathlib import Path
+from conversor import convertir_imagen
 
 # Variables Globales
 ruta_imagen_seleccionada = None
@@ -38,6 +40,28 @@ def ventana_programa():
         else:
             label_ruta_guardar.config(text="No se ha seleccionado ninguna carpeta de guardado.")
 
+    
+    def convertir():
+        if ruta_imagen_seleccionada and ruta_carpeta_guardado:
+
+            formato = combo.get() # obtenemos el formato a convertir seleccionado
+            ejecutar_conversión = convertir_imagen(formato_a_convertir=formato, ruta_img_seleccionada=ruta_imagen_seleccionada, ruta_dir_guardar=ruta_carpeta_guardado)
+
+            # Simular el proceso de conversión con un ciclo for
+            for i in range(101):
+                time.sleep(0.03)  # Simular un pequeño retraso
+                progressbar["value"] = i
+                progressbar.update()
+
+            # Actualizar el mensaje de conversión
+            label_ruta_mensaje.config(text="Imagen convertida y guardada en: " + str(ejecutar_conversión))
+            messagebox.showinfo(title = "Correcto", message = "Conversión exitosa")
+
+        else:
+            label_ruta_mensaje.config(text="Por favor, seleccione una imagen, una carpeta y un formato.", fg="red")
+            messagebox.showerror(title = "Error", message = "Por favor, realiza todo lo que se te pide.")
+
+
     '''Fin de las funciones a utilizar'''
 
     '''Inicio de objetos dentro de la ventana'''
@@ -68,6 +92,20 @@ def ventana_programa():
     # Botón para seleccionar la carpeta de guardado
     boton_seleccionar_carpeta = tk.Button(ventana, text="Seleccionar carpeta", command=seleccionar_carpeta)
     boton_seleccionar_carpeta.pack(pady=5)
+
+    # Barra de progreso
+    progressbar = ttk.Progressbar(ventana, mode="determinate", maximum=100)
+
+    # Etiqueta para mostrar el mensaje de conversión
+    label_ruta_mensaje = tk.Label(ventana, text="No se ha detectado ningún problema.", wraplength=300, fg="green")
+    label_ruta_mensaje.pack(pady=10)
+
+    # Botón para convertir la imagen
+    boton_convertir = tk.Button(ventana, text="Convertir Imágen", command=convertir)
+    boton_convertir.pack(pady=5)
+
+    # Configurar la posición de la barra de progreso
+    progressbar.pack(pady=5)
 
     '''Fin de objetos dentro de la ventana'''
 
