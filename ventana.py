@@ -8,6 +8,11 @@ from conversor import convertir_imagen
 # Variables Globales
 ruta_imagen_seleccionada = None
 ruta_carpeta_guardado = None
+FUENTE_PRINCIPAL = ('Arial', 18)
+FUENTE_TEXTO = 'Arial'
+FUENTE_BOTON = 'Arial'
+COLOR_NARANJA = '#FA7200'
+FONDO='#F0F0F0'
 
 
 # Función que alamacena nuestra ventana
@@ -16,8 +21,12 @@ def ventana_programa():
     ventana = tk.Tk()
 
     # Configuración de la ventana
-    ventana.geometry("550x500")
+    ventana.geometry("550x600")
     ventana.title("Conversor de Formatos")
+    ventana.config(background=FONDO)
+    label_principal = tk.Label(ventana, text="Conversor de Formatos", wraplength=300, font=FUENTE_PRINCIPAL)
+    label_principal.pack(pady=20)
+    
 
     '''Funciónes a utilizar'''
     def seleccionar_imagen():
@@ -29,7 +38,7 @@ def ventana_programa():
         if ruta_imagen_seleccionada:
             label_ruta_imagen.config(text="Ruta de la imagen seleccionada: " + ruta_imagen_seleccionada)
         else:
-            label_ruta_imagen.config(text="No se ha seleccionado ninguna imagen.", fg="yellow")
+            label_ruta_imagen.config(text="No se ha seleccionado ninguna imagen.", fg=COLOR_NARANJA, bg=FONDO, font=FUENTE_TEXTO)
 
     def seleccionar_carpeta():
         global ruta_carpeta_guardado
@@ -37,7 +46,7 @@ def ventana_programa():
         if ruta_carpeta_guardado:
             label_ruta_guardar.config(text="Carpeta de guardado seleccionada: " + ruta_carpeta_guardado)
         else:
-            label_ruta_guardar.config(text="No se ha seleccionado ninguna carpeta de guardado.", fg="yellow")
+            label_ruta_guardar.config(text="No se ha seleccionado ninguna carpeta de guardado.", fg=COLOR_NARANJA, bg=FONDO, font=FUENTE_TEXTO)
 
     
     def convertir():
@@ -61,8 +70,8 @@ def ventana_programa():
             messagebox.showinfo(title = "Correcto", message = "Conversión exitosa")
 
         else:
-            label_ruta_mensaje.config(text="Por favor, seleccione una imagen, una carpeta y un formato.", fg="red")
-            messagebox.showerror(title = "Error", message = "Por favor, realiza todo lo que se te pide.")
+            label_ruta_mensaje.config(text="Por favor, seleccione una imagen, una carpeta y un formato.", fg="red", bg=FONDO, font=FUENTE_TEXTO)
+            messagebox.showerror(title = "Error", message = "Por favor, realiza todo lo que se te pide.", font=FUENTE_TEXTO)
 
 
     '''Fin de las funciones a utilizar'''
@@ -70,16 +79,16 @@ def ventana_programa():
     '''Inicio de objetos dentro de la ventana'''
 
     # Etiqueta para mostrar la ruta de la imagen seleccionada
-    label_ruta_imagen = tk.Label(ventana, text="No se ha seleccionado ninguna imagen.", wraplength=300)
+    label_ruta_imagen = tk.Label(ventana, text="No se ha seleccionado ninguna imagen.", fg=COLOR_NARANJA, bg=FONDO, wraplength=300, font=FUENTE_TEXTO)
     label_ruta_imagen.pack(pady=10)
 
     # Botón para seleccionar la imagen
-    boton_seleccionar = tk.Button(ventana, text="Seleccionar imagen", command=seleccionar_imagen)
+    boton_seleccionar = tk.Button(ventana, text="Seleccionar imagen", command=seleccionar_imagen, font=FUENTE_BOTON)
     boton_seleccionar.pack(pady=5)
 
     # Etiqueta para mostrar la ruta de la imagen seleccionada
     formato_opciones = ["PNG", "JPG", "JPEG", "WEBP", "GIF"]
-    laber_combo = tk.Label(ventana, text="Formato a Convertir.", wraplength=300)
+    laber_combo = tk.Label(ventana, text="Formato a Convertir.", wraplength=300, font=FUENTE_TEXTO)
     laber_combo.pack(pady=10)
     combo = ttk.Combobox(
         state="readonly",
@@ -89,22 +98,22 @@ def ventana_programa():
     combo.pack(pady=10)
 
     # Etiqueta para mostrar la ruta de la carpeta seleccionada
-    label_ruta_guardar = tk.Label(ventana, text="No se ha seleccionado ninguna carpeta de guardado.", wraplength=300)
+    label_ruta_guardar = tk.Label(ventana, text="No se ha seleccionado ninguna carpeta de guardado.", fg=COLOR_NARANJA, bg=FONDO, wraplength=300, font=FUENTE_TEXTO)
     label_ruta_guardar.pack(pady=10)
 
     # Botón para seleccionar la carpeta de guardado
-    boton_seleccionar_carpeta = tk.Button(ventana, text="Seleccionar carpeta", command=seleccionar_carpeta)
+    boton_seleccionar_carpeta = tk.Button(ventana, text="Seleccionar carpeta", command=seleccionar_carpeta, font=FUENTE_BOTON)
     boton_seleccionar_carpeta.pack(pady=5)
 
     # Barra de progreso
     progressbar = ttk.Progressbar(ventana, mode="determinate", maximum=100)
 
     # Etiqueta para mostrar el mensaje de conversión
-    label_ruta_mensaje = tk.Label(ventana, text="No se ha detectado ningún problema.", wraplength=300, fg="green")
+    label_ruta_mensaje = tk.Label(ventana, text="No se ha detectado ningún problema.", wraplength=300, fg="green", bg=FONDO, font=FUENTE_TEXTO)
     label_ruta_mensaje.pack(pady=10)
 
     # Botón para convertir la imagen
-    boton_convertir = tk.Button(ventana, text="Convertir Imágen", command=convertir)
+    boton_convertir = tk.Button(ventana, text="Convertir Imágen", command=convertir, font=FUENTE_BOTON)
     boton_convertir.pack(pady=5)
 
     # Configurar la posición de la barra de progreso
