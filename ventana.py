@@ -3,6 +3,7 @@ import random, time
 import tkinter as tk
 from tkinter import filedialog, ttk, messagebox
 from conversor import convertir_imagen
+from menu import acercade, actualizaciones
 
 
 # Variables Globales
@@ -19,6 +20,12 @@ FONDO='#F0F0F0'
 def ventana_programa():
     # Ventana
     ventana = tk.Tk()
+    menu = tk.Menu()
+    menu_ayuda = tk.Menu(menu, tearoff=0)
+    menu.add_cascade(label="Ayuda", menu=menu_ayuda)
+    menu_ayuda.add_command(label="Actualizaciones", command=actualizaciones)
+    menu_ayuda.add_command(label="Acerca de", command=acercade)
+    menu.add_cascade(label="Salir", command=ventana.quit)
 
     # Configuración de la ventana
     ancho_ventana = 550
@@ -27,16 +34,14 @@ def ventana_programa():
     y_ventana = ventana.winfo_screenheight() // 2 - alto_ventana // 2
     posicion = str(ancho_ventana) + "x" + str(alto_ventana) + "+" + str(x_ventana) + "+" + str(y_ventana)
     ventana.geometry(posicion)
-    ventana.title("Conversor de Formatos")
-    ventana.config(background=FONDO)
+    ventana.title("CubiQ | Conversor de Imágenes")
+    ventana.config(background=FONDO, menu=menu)
     ventana.resizable(False, False)
     
-
-    label_principal = tk.Label(ventana, text="Conversor de Formatos", wraplength=300, font=FUENTE_PRINCIPAL)
+    label_principal = tk.Label(ventana, text="CubiQ | Conversor de Imágenes", wraplength=350, font=FUENTE_PRINCIPAL)
     label_principal.pack(pady=20)
     our_canvas=tk.Canvas(ventana,width=550,height=1,bg="black")
     our_canvas.pack()
-    
 
     '''Funciónes a utilizar'''
     def seleccionar_imagen():
