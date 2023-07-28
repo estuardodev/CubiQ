@@ -2,13 +2,12 @@
 import random, time
 import tkinter as tk
 from tkinter import filedialog, ttk, messagebox
-from pathlib import Path
 from conversor import convertir_imagen
+
 
 # Variables Globales
 ruta_imagen_seleccionada = None
 ruta_carpeta_guardado = None
-
 
 
 # Función que alamacena nuestra ventana
@@ -30,7 +29,7 @@ def ventana_programa():
         if ruta_imagen_seleccionada:
             label_ruta_imagen.config(text="Ruta de la imagen seleccionada: " + ruta_imagen_seleccionada)
         else:
-            label_ruta_imagen.config(text="No se ha seleccionado ninguna imagen.")
+            label_ruta_imagen.config(text="No se ha seleccionado ninguna imagen.", fg="yellow")
 
     def seleccionar_carpeta():
         global ruta_carpeta_guardado
@@ -38,20 +37,24 @@ def ventana_programa():
         if ruta_carpeta_guardado:
             label_ruta_guardar.config(text="Carpeta de guardado seleccionada: " + ruta_carpeta_guardado)
         else:
-            label_ruta_guardar.config(text="No se ha seleccionado ninguna carpeta de guardado.")
+            label_ruta_guardar.config(text="No se ha seleccionado ninguna carpeta de guardado.", fg="yellow")
 
     
     def convertir():
         if ruta_imagen_seleccionada and ruta_carpeta_guardado:
 
             formato = combo.get() # obtenemos el formato a convertir seleccionado
-            ejecutar_conversión = convertir_imagen(formato_a_convertir=formato, ruta_img_seleccionada=ruta_imagen_seleccionada, ruta_dir_guardar=ruta_carpeta_guardado)
+            ejecutar_conversión = convertir_imagen(formato, ruta_imagen_seleccionada, ruta_carpeta_guardado)
 
             # Simular el proceso de conversión con un ciclo for
             for i in range(101):
-                time.sleep(0.03)  # Simular un pequeño retraso
+                time.sleep(0.01)  # Simular un pequeño retraso
                 progressbar["value"] = i
                 progressbar.update()
+             # Detener la barra de progreso y restablecer su valor
+            progressbar.stop()
+            progressbar["value"] = 0
+            progressbar.update()
 
             # Actualizar el mensaje de conversión
             label_ruta_mensaje.config(text="Imagen convertida y guardada en: " + str(ejecutar_conversión))
